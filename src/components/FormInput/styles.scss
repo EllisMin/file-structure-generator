@@ -1,0 +1,19 @@
+.form-group {
+  display: grid;
+  grid-template-columns: 4fr 4fr 4fr;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.5rem 0;
+
+  input {
+    border-radius: 0px;
+  }
+
+  label {
+    margin: 0 0.2rem;
+  }
+
+  .btn-container {
+    margin-left: 0.2rem;
+  }
+}
