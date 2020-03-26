@@ -61,11 +61,10 @@ const Form = ({
 
   return (
     <form className="main-form">
+      {elements}
       <Button className="btn-reset" onClick={e => reset(e)}>
         Reset
       </Button>
-      {elements}
-      <Button>Submit</Button>
     </form>
   );
 };
