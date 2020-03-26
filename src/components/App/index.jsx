@@ -4,9 +4,17 @@ import Result from "../Result";
 
 import "./styles.scss";
 
+const rootInput = {
+  name: "root",
+  level: 0,
+  value: ".",
+  subChildren: []
+};
+
 const child = {
   name: "child-1",
   level: 1,
+  value: "",
   subChildren: []
 };
 
@@ -26,8 +34,20 @@ const findSubChild = (list, updatedChild) => {
   return list;
 };
 
+const inputChangeHelper = (list, key, val) => {
+  for (let i = 0; i < list.length; i++) {
+    const child = list[i];
+    if (child.name === key) {
+      list[i].value = val;
+    } else if (child.subChildren.length > 0 && key.includes(child.name)) {
+      inputChangeHelper(child.subChildren, key, val);
+    }
+  }
+  return list;
+};
+
 const App = () => {
-  const [children, setChildren] = useState([child]);
+  const [children, setChildren] = useState([rootInput, child]);
 
   const handleAddChild = newChild => {
     const updatedChildren = [...children, newChild];
@@ -35,7 +55,16 @@ const App = () => {
   };
 
   const handleReset = () => {
-    setChildren([child]);
+    setChildren([rootInput, child]);
+  };
+
+  const handleInputChange = (e, key) => {
+    const updatedChildren = inputChangeHelper(
+      [...children],
+      key,
+      e.target.value
+    );
+    setChildren(updatedChildren);
   };
 
   const handleAddSubChild = curChild => {
@@ -44,12 +73,12 @@ const App = () => {
     const newSubChild = {
       name: `${curChild.name}-${len + 1}`,
       level: curChild.level + 1,
+      value: "",
       subChildren: []
     };
     subChildren.push(newSubChild);
     const updatedChild = {
-      name: curChild.name,
-      level: curChild.level,
+      ...curChild,
       subChildren: subChildren
     };
 
@@ -64,8 +93,9 @@ const App = () => {
         handleAddChild={handleAddChild}
         handleAddSubChild={handleAddSubChild}
         handleReset={handleReset}
+        handleInputChange={handleInputChange}
       />
-      <Result />
+      <Result children={children} />
     </div>
   );
 };
