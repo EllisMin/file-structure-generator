@@ -5,14 +5,14 @@ import Button from "../Button";
 import "./styles.scss";
 
 // Render sub children recursively
-const renderHelper = (
-  elements,
-  children,
-  handleAddChild,
-  handleAddSubChild,
-  handleInputChange,
-  handleRemove
-) => {
+const renderHelper = (elements, children, otherProps) => {
+  const {
+    childCount,
+    handleAddChild,
+    handleAddSubChild,
+    handleInputChange,
+    handleRemove
+  } = otherProps;
   children.forEach((child, i) => {
     elements.push(
       <FormInput
@@ -20,6 +20,7 @@ const renderHelper = (
         id={i}
         value={child.value}
         child={child}
+        childCount={childCount}
         label={child.name}
         handleAddChild={handleAddChild}
         handleAddSubChild={handleAddSubChild}
@@ -29,35 +30,14 @@ const renderHelper = (
       />
     );
     if (child.subChildren.length > 0) {
-      renderHelper(
-        elements,
-        child.subChildren,
-        handleAddChild,
-        handleAddSubChild,
-        handleInputChange,
-        handleRemove
-      );
+      renderHelper(elements, child.subChildren, otherProps);
     }
   });
   return elements;
 };
 
-const Form = ({
-  handleAddChild,
-  handleAddSubChild,
-  handleReset,
-  handleInputChange,
-  children,
-  handleRemove
-}) => {
-  const elements = renderHelper(
-    [],
-    children,
-    handleAddChild,
-    handleAddSubChild,
-    handleInputChange,
-    handleRemove
-  );
+const Form = ({ handleReset, ...otherProps }) => {
+  const elements = renderHelper([], otherProps.children, otherProps);
 
   const reset = e => {
     e.preventDefault();
@@ -66,10 +46,10 @@ const Form = ({
 
   return (
     <form className="main-form">
-      {elements}
       <Button className="btn-reset" onClick={e => reset(e)}>
         Reset
       </Button>
+      {elements}
     </form>
   );
 };

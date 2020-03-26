@@ -3,12 +3,11 @@ import Button from "../Button";
 
 import "./styles.scss";
 
-let childCount = 2;
-
 const FormInput = ({
   id,
   label,
   child,
+  childCount,
   handleAddChild,
   handleAddSubChild,
   lastChild,
@@ -18,7 +17,7 @@ const FormInput = ({
   const addChild = e => {
     e.preventDefault();
     const newChild = {
-      name: `child-${childCount++}`,
+      name: `child-${childCount + 1}`,
       level: child.level,
       value: "",
       subChildren: []

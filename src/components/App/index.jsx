@@ -61,10 +61,12 @@ const removeHelper = (list, childName) => {
 
 const App = () => {
   const [children, setChildren] = useState([rootInput, child]);
+  const [childCount, setChildCount] = useState(1);
 
   const handleAddChild = newChild => {
     const updatedChildren = [...children, newChild];
     setChildren(updatedChildren);
+    setChildCount(childCount + 1);
   };
 
   const handleReset = () => {
@@ -72,6 +74,7 @@ const App = () => {
     rootInput["subChildren"] = [];
     child["value"] = "";
     child["subChildren"] = [];
+    setChildCount(1);
     setChildren([rootInput, child]);
   };
 
@@ -122,6 +125,7 @@ const App = () => {
         handleReset={handleReset}
         handleInputChange={handleInputChange}
         handleRemove={handleRemove}
+        childCount={childCount}
       />
       <Result children={children} sortedAlphabetical />
     </div>

@@ -5,6 +5,7 @@ import "./styles.scss";
 
 const MainCard = ({
   children,
+  childCount,
   handleAddChild,
   handleAddSubChild,
   handleReset,
@@ -18,6 +19,7 @@ const MainCard = ({
       <main>
         <Form
           children={children}
+          childCount={childCount}
           handleAddChild={handleAddChild}
           handleAddSubChild={handleAddSubChild}
           handleReset={handleReset}
