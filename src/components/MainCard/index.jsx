@@ -33,6 +33,10 @@ const MainCard = () => {
     setChildren(updatedChildren);
   };
 
+  const handleReset = () => {
+    setChildren([child]);
+  };
+
   const handleAddSubChild = curChild => {
     const subChildren = [...curChild.subChildren];
     const len = subChildren.length;
@@ -62,6 +66,7 @@ const MainCard = () => {
           children={children}
           handleAddChild={handleAddChild}
           handleAddSubChild={handleAddSubChild}
+          handleReset={handleReset}
         />
       </main>
     </div>

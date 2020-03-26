@@ -35,7 +35,7 @@ const renderHelper = (
   return elements;
 };
 
-const Form = ({ handleAddChild, handleAddSubChild, children }) => {
+const Form = ({ handleAddChild, handleAddSubChild, handleReset, children }) => {
   const elements = renderHelper(
     [],
     children,
@@ -43,9 +43,16 @@ const Form = ({ handleAddChild, handleAddSubChild, children }) => {
     handleAddSubChild
   );
 
+  const reset = e => {
+    e.preventDefault();
+    handleReset();
+  };
+
   return (
     <form className="main-form">
-      <Button className="btn-reset">Reset</Button>
+      <Button className="btn-reset" onClick={e => reset(e)}>
+        Reset
+      </Button>
       <FormInput label="root" isRoot />
       {elements}
       <Button>Submit</Button>
