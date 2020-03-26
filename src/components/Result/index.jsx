@@ -10,17 +10,17 @@ const traverse = (list, resList, sortedAlphabetical, extraText, fontType) => {
     const child = list[i];
     if (list.length - 1 !== i) {
       resList.push(
-        <p
+        <pre
           key={child.name}
           className="result-text"
-        >{`${extraText}├── ${child.value}`}</p>
+        >{`${extraText}├── ${child.value}`}</pre>
       );
     } else {
       resList.push(
-        <p
+        <pre
           key={child.name}
           className="result-text"
-        >{`${extraText}└── ${child.value}`}</p>
+        >{`${extraText}└── ${child.value}`}</pre>
       );
     }
 
@@ -50,7 +50,7 @@ const Result = ({ children, sortedAlphabetical, fontType }) => {
 
   return (
     <div className="result">
-      <p className="result-text">{rootText}</p>
+      <pre className="result-text">{rootText}</pre>
       {elements}
     </div>
   );
