@@ -55,6 +55,10 @@ const App = () => {
   };
 
   const handleReset = () => {
+    rootInput["value"] = ".";
+    rootInput["subChildren"] = [];
+    child["value"] = "";
+    child["subChildren"] = [];
     setChildren([rootInput, child]);
   };
 
