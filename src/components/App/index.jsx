@@ -46,6 +46,19 @@ const inputChangeHelper = (list, key, val) => {
   return list;
 };
 
+const removeHelper = (list, childName) => {
+  for (let i = 0; i < list.length; i++) {
+    const child = list[i];
+    if (child.name === childName) {
+      list.splice(i, 1);
+    }
+    if (child.subChildren.length > 0 && childName.includes(child.name)) {
+      removeHelper(child.subChildren, childName);
+    }
+  }
+  return list;
+};
+
 const App = () => {
   const [children, setChildren] = useState([rootInput, child]);
 
@@ -73,9 +86,15 @@ const App = () => {
 
   const handleAddSubChild = curChild => {
     const subChildren = [...curChild.subChildren];
-    const len = subChildren.length;
+    let max = 0;
+    for (let i = 0; i < subChildren.length; i++) {
+      const name = subChildren[i].name;
+      const thChild = parseInt(name.charAt(name.length - 1));
+      max = Math.max(max, thChild);
+    }
+
     const newSubChild = {
-      name: `${curChild.name}-${len + 1}`,
+      name: `${curChild.name}-${max + 1}`,
       level: curChild.level + 1,
       value: "",
       subChildren: []
@@ -85,11 +104,15 @@ const App = () => {
       ...curChild,
       subChildren: subChildren
     };
-
     const updatedChildren = findSubChild([...children], updatedChild);
-
     setChildren(updatedChildren);
   };
+
+  const handleRemove = childName => {
+    const updatedChildren = removeHelper([...children], childName);
+    setChildren(updatedChildren);
+  };
+
   return (
     <div className="App">
       <MainCard
@@ -98,8 +121,9 @@ const App = () => {
         handleAddSubChild={handleAddSubChild}
         handleReset={handleReset}
         handleInputChange={handleInputChange}
+        handleRemove={handleRemove}
       />
-      <Result children={children} />
+      <Result children={children} sortedAlphabetical />
     </div>
   );
 };

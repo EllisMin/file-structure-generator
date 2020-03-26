@@ -3,6 +3,8 @@ import Button from "../Button";
 
 import "./styles.scss";
 
+let childCount = 2;
+
 const FormInput = ({
   id,
   label,
@@ -10,12 +12,13 @@ const FormInput = ({
   handleAddChild,
   handleAddSubChild,
   lastChild,
+  handleRemove,
   ...otherProps
 }) => {
   const addChild = e => {
     e.preventDefault();
     const newChild = {
-      name: `child-${id + 1}`,
+      name: `child-${childCount++}`,
       level: child.level,
       value: "",
       subChildren: []
@@ -26,6 +29,11 @@ const FormInput = ({
   const addSubChild = e => {
     e.preventDefault();
     handleAddSubChild(child);
+  };
+
+  const removeChild = e => {
+    e.preventDefault();
+    handleRemove(child.name);
   };
 
   const marginLeft = child ? `${child.level * 13}px` : `0.5rem`;
@@ -39,6 +47,9 @@ const FormInput = ({
           <>
             <Button onClick={e => addSubChild(e)}>+sub</Button>
             {lastChild && <Button onClick={e => addChild(e)}>+</Button>}
+            {label !== "child-1" && (
+              <Button onClick={e => removeChild(e)}>-</Button>
+            )}
           </>
         )}
       </div>

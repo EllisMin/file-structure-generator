@@ -10,7 +10,8 @@ const renderHelper = (
   children,
   handleAddChild,
   handleAddSubChild,
-  handleInputChange
+  handleInputChange,
+  handleRemove
 ) => {
   children.forEach((child, i) => {
     elements.push(
@@ -23,6 +24,7 @@ const renderHelper = (
         handleAddChild={handleAddChild}
         handleAddSubChild={handleAddSubChild}
         onChange={e => handleInputChange(e, child.name)}
+        handleRemove={handleRemove}
         lastChild={children.length - 1 === i && child.level === 1}
       />
     );
@@ -32,7 +34,8 @@ const renderHelper = (
         child.subChildren,
         handleAddChild,
         handleAddSubChild,
-        handleInputChange
+        handleInputChange,
+        handleRemove
       );
     }
   });
@@ -44,14 +47,16 @@ const Form = ({
   handleAddSubChild,
   handleReset,
   handleInputChange,
-  children
+  children,
+  handleRemove
 }) => {
   const elements = renderHelper(
     [],
     children,
     handleAddChild,
     handleAddSubChild,
-    handleInputChange
+    handleInputChange,
+    handleRemove
   );
 
   const reset = e => {
