@@ -10,7 +10,8 @@ const MainCard = ({
   handleAddSubChild,
   handleReset,
   handleInputChange,
-  handleRemove
+  handleRemove,
+  handleSort
 }) => {
   return (
     <div className="main-card">
@@ -25,6 +26,7 @@ const MainCard = ({
           handleReset={handleReset}
           handleInputChange={handleInputChange}
           handleRemove={handleRemove}
+          handleSort={handleSort}
         />
       </main>
     </div>

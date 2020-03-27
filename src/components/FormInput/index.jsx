@@ -4,7 +4,6 @@ import Button from "../Button";
 import "./styles.scss";
 
 const FormInput = ({
-  id,
   label,
   child,
   childCount,

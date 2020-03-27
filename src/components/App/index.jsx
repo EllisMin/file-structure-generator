@@ -59,6 +59,29 @@ const removeHelper = (list, childName) => {
   return list;
 };
 
+const sortHelper = list => {
+  list.sort((a, b) => {
+    // Doesn't sort empty field
+    if (a.value !== "") {
+      // Ignore .
+      if (a.value.charAt(0) === "." && a.value.length > 1) {
+        return a.value.substr(1).localeCompare(b.value);
+      } else if (b.value.charAt(0) === "." && b.value.length > 1) {
+        return a.value.localeCompare(b.value.substr(1));
+      } else {
+        return a.value.localeCompare(b.value);
+      }
+    }
+  });
+
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].subChildren.length > 0) {
+      sortHelper(list[i].subChildren);
+    }
+  }
+  return list;
+};
+
 const App = () => {
   const [children, setChildren] = useState([rootInput, child]);
   const [childCount, setChildCount] = useState(1);
@@ -116,6 +139,13 @@ const App = () => {
     setChildren(updatedChildren);
   };
 
+  const handleSort = () => {
+    const rootInput = children[0];
+    const updated = sortHelper([...children].slice(1));
+    updated.unshift(rootInput);
+    setChildren(updated);
+  };
+
   return (
     <div className="App">
       <MainCard
@@ -125,9 +155,10 @@ const App = () => {
         handleReset={handleReset}
         handleInputChange={handleInputChange}
         handleRemove={handleRemove}
+        handleSort={handleSort}
         childCount={childCount}
       />
-      <Result children={children} sortedAlphabetical />
+      <Result children={children} />
     </div>
   );
 };

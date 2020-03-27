@@ -17,7 +17,6 @@ const renderHelper = (elements, children, otherProps) => {
     elements.push(
       <FormInput
         key={child.name}
-        id={i}
         value={child.value}
         child={child}
         childCount={childCount}
@@ -36,19 +35,25 @@ const renderHelper = (elements, children, otherProps) => {
   return elements;
 };
 
-const Form = ({ handleReset, ...otherProps }) => {
-  const elements = renderHelper([], otherProps.children, otherProps);
+const Form = ({ handleReset, handleSort, children, ...otherProps }) => {
+  const elements = renderHelper([], children, otherProps);
 
   const reset = e => {
     e.preventDefault();
     handleReset();
   };
 
+  const sort = e => {
+    e.preventDefault();
+    handleSort();
+  };
+
   return (
     <form className="main-form">
-      <Button className="btn-reset" onClick={e => reset(e)}>
-        Reset
-      </Button>
+      <div className="btn-container">
+        <Button onClick={e => reset(e)}>Reset</Button>
+        <Button onClick={e => sort(e)}>Sort A-Z</Button>
+      </div>
       {elements}
     </form>
   );
