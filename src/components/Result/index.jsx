@@ -4,9 +4,11 @@ import Button from "../Button";
 import "./styles.scss";
 
 const traverse = (list, resList, extraText, fontType) => {
+  let lastChild = false;
   for (let i = 0; i < list.length; i++) {
     const child = list[i];
-    if (list.length - 1 !== i) {
+    lastChild = list.length - 1 === i;
+    if (!lastChild) {
       if (fontType === 1) {
         resList.push(
           <pre
@@ -41,17 +43,17 @@ const traverse = (list, resList, extraText, fontType) => {
     }
     if (child.subChildren.length > 0) {
       let text = "";
-      if (child.level === 1) {
-        if (fontType === 1) {
-          text = extraText + "|   ";
-        } else {
-          text = extraText + " |     ";
-        }
-      } else {
+      if (lastChild) {
         if (fontType === 1) {
           text = extraText + "    ";
         } else {
           text = extraText + "        ";
+        }
+      } else {
+        if (fontType === 1) {
+          text = extraText + "|   ";
+        } else {
+          text = extraText + " |      ";
         }
       }
       traverse(child.subChildren, resList, text, fontType);
