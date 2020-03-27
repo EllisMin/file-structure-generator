@@ -1,5 +1,6 @@
 {
   "name": "text-file-structure-generator",
+  "homepage": "https://ellismin.github.io/file-structure-generator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
