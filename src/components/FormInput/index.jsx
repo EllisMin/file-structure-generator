@@ -43,10 +43,16 @@ const FormInput = ({
       <div className="btn-container">
         {label !== "root" && (
           <>
-            <Button onClick={e => addSubChild(e)}>+sub</Button>
-            {lastChild && <Button onClick={e => addChild(e)}>+</Button>}
+            <Button onClick={e => addSubChild(e)}>↓</Button>
             {label !== "child-1" && (
-              <Button onClick={e => removeChild(e)}>-</Button>
+              <Button className="btn-delete" onClick={e => removeChild(e)}>
+                -
+              </Button>
+            )}
+            {lastChild && (
+              <Button className="btn-add" onClick={e => addChild(e)}>
+                +
+              </Button>
             )}
           </>
         )}
