@@ -61,16 +61,13 @@ const removeHelper = (list, childName) => {
 
 const sortHelper = list => {
   list.sort((a, b) => {
-    // Doesn't sort empty field
-    if (a.value !== "") {
-      // Ignore .
-      if (a.value.charAt(0) === "." && a.value.length > 1) {
-        return a.value.substr(1).localeCompare(b.value);
-      } else if (b.value.charAt(0) === "." && b.value.length > 1) {
-        return a.value.localeCompare(b.value.substr(1));
-      } else {
-        return a.value.localeCompare(b.value);
-      }
+    // Ignore .
+    if (a.value.charAt(0) === "." && a.value.length > 1) {
+      return a.value.substr(1).localeCompare(b.value);
+    } else if (b.value.charAt(0) === "." && b.value.length > 1) {
+      return a.value.localeCompare(b.value.substr(1));
+    } else {
+      return a.value.localeCompare(b.value);
     }
   });
 
