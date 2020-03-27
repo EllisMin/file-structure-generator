@@ -82,6 +82,7 @@ const sortHelper = list => {
 const App = () => {
   const [children, setChildren] = useState([rootInput, child]);
   const [childCount, setChildCount] = useState(1);
+  const [fontType, setFontType] = useState(1);
 
   const handleAddChild = newChild => {
     const updatedChildren = [...children, newChild];
@@ -105,6 +106,14 @@ const App = () => {
       e.target.value
     );
     setChildren(updatedChildren);
+  };
+
+  const handleFontType = () => {
+    if (fontType === 1) {
+      setFontType(2);
+    } else {
+      setFontType(1);
+    }
   };
 
   const handleAddSubChild = curChild => {
@@ -155,7 +164,11 @@ const App = () => {
         handleSort={handleSort}
         childCount={childCount}
       />
-      <Result children={children} />
+      <Result
+        children={children}
+        fontType={fontType}
+        handleFontType={handleFontType}
+      />
     </div>
   );
 };
