@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import Switch from "react-switch";
+import Button from "../Button";
 import "./styles.scss";
 
 const traverse = (list, resList, extraText, fontType) => {
@@ -60,14 +61,42 @@ const traverse = (list, resList, extraText, fontType) => {
 };
 
 const Result = ({ children, handleFontType, fontType }) => {
+  const [copySuccess, setCopySuccess] = useState("");
+  const textRef = useRef(null);
   const rootText = children[0].value;
   let newChildren = [...children];
   newChildren = newChildren.slice(1);
   const elements = traverse(newChildren, [], "", fontType);
 
+  const copyToClipboard = e => {
+    // IE
+    if (document.selection) {
+      const range = document.body.createTextRange();
+      range.movetoElementText(textRef.current);
+      range.select();
+      document.execCommand("copy");
+    } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(textRef.current);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+
+      window.getSelection().removeRange(range); // Unselect
+    }
+    setCopySuccess("Copied!");
+  };
+
   return (
     <div className={`${fontType === 1 ? "font-1" : "font-2"} result`}>
-      <div className="font-type-container">
+      <div className="result-header">
+        {/* Display copy btn if command exists */}
+        {document.queryCommandSupported("copy") && (
+          <div className="">
+            <Button onClick={copyToClipboard}>Copy</Button>
+            {copySuccess}
+          </div>
+        )}
         <label>
           <span>Font Type</span>
           <Switch
@@ -84,8 +113,10 @@ const Result = ({ children, handleFontType, fontType }) => {
           />
         </label>
       </div>
-      <pre className="result-text">{rootText}</pre>
-      {elements}
+      <div className="texts" ref={textRef}>
+        <pre className="result-text">{rootText}</pre>
+        {elements}
+      </div>
     </div>
   );
 };

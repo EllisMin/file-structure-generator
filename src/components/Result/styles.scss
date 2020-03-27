@@ -10,8 +10,11 @@
   }
 }
 
-.font-type-container {
+.result-header {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.8rem;
+  margin-bottom: 1rem;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
