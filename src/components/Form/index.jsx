@@ -11,7 +11,7 @@ const renderHelper = (elements, children, otherProps) => {
     handleAddChild,
     handleAddSubChild,
     handleInputChange,
-    handleRemove
+    handleRemove,
   } = otherProps;
   children.forEach((child, i) => {
     elements.push(
@@ -23,9 +23,14 @@ const renderHelper = (elements, children, otherProps) => {
         label={child.name}
         handleAddChild={handleAddChild}
         handleAddSubChild={handleAddSubChild}
-        onChange={e => handleInputChange(e, child.name)}
+        onChange={(e) => handleInputChange(e, child.name)}
         handleRemove={handleRemove}
         lastChild={children.length - 1 === i && child.level === 1}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
       />
     );
     if (child.subChildren.length > 0) {
@@ -38,12 +43,12 @@ const renderHelper = (elements, children, otherProps) => {
 const Form = ({ handleReset, handleSort, children, ...otherProps }) => {
   const elements = renderHelper([], children, otherProps);
 
-  const reset = e => {
+  const reset = (e) => {
     e.preventDefault();
     handleReset();
   };
 
-  const sort = e => {
+  const sort = (e) => {
     e.preventDefault();
     handleSort();
   };
@@ -51,8 +56,8 @@ const Form = ({ handleReset, handleSort, children, ...otherProps }) => {
   return (
     <form className="main-form">
       <div className="btn-container">
-        <Button onClick={e => reset(e)}>Reset</Button>
-        <Button onClick={e => sort(e)}>Sort A-Z</Button>
+        <Button onClick={(e) => reset(e)}>Reset</Button>
+        <Button onClick={(e) => sort(e)}>Sort A-Z</Button>
       </div>
       {elements}
     </form>
