@@ -6,7 +6,10 @@
   margin: 0.5rem 0;
 
   input {
-    border-radius: 0px;
+    all: unset;
+    border-radius: 4px;
+    border: 1px solid #999;
+    padding: 2px;
   }
 
   label {

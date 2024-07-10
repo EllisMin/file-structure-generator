@@ -1,10 +1,11 @@
 button.btn-custom {
   cursor: pointer;
   background: none;
-  border: 1px solid #666;
+  border: 1px solid #999;
   margin: 0 0.2rem;
   padding: 0.2rem 0.3rem;
   border-radius: 3px;
+  color: #eee;
 
   &:hover {
     color: #eee;

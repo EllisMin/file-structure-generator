@@ -104,8 +104,8 @@ const Result = ({ children, handleFontType, fontType }) => {
           <Switch
             onChange={handleFontType}
             checked={fontType === 1 ? false : true}
-            offColor="#ccc"
-            onColor="#4a4a4a"
+            offColor="#999"
+            onColor="#407459"
             onHandleColor="#eee"
             uncheckedIcon={false}
             checkedIcon={false}
